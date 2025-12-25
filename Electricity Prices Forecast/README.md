@@ -47,12 +47,13 @@ The model uses a combination of domain-driven and statistical features designed 
   - Weekly quantiles (e.g., 10%, 50%)  
   - Inter-quantile range (IQR) to characterize volatility regimes
 - **Seasonality**
-  - Fourier terms for daily and weekly patterns
+  - Fourier terms for annually, weekly and daily patterns
 - **Calendar effects**
-  - Hour of day, day of week, holidays
+  - Day, Month, Hour of day, day of week, weekends, holidays
 - **Exogenous variables**
-  - Weather indicators  
-  - Natural gas price  
+  - Weather indicators : temperature, precipitation, cloud cover, global tilted irradiance , wind_speed_100m , wind_direction_100m
+  - Natural gas price
+  - Electricity Consumption in MW
 
 These features help models adapt to changing price regimes, especially during high volatility or sharp price drops.
 
@@ -74,7 +75,15 @@ Each model contributes differently:
 ### Training Strategy
 - Time-series cross-validation for all models  
 - Out-of-fold (OOF) predictions used to train the meta learner  
-- Strict separation between train / validation / test sets to avoid leakage  
+- Strict separation between train / validation / test sets to avoid leakage
+
+### Hyperparameter 
+Tuning To improve model robustness and reduce overfitting, each base learner undergoes dedicated hyperparameter optimization: 
+- **XGBoost:** Bayesian Optimization
+- **LightGBM:** Random Search
+- **CatBoost:** Random Search
+
+These tuning strategies balance exploration and computational efficiency, ensuring each model operates near its optimal configuration before stacking.
 
 ### Stacking & Meta Learning
 A **Ridge regression meta learner** is trained on OOF predictions plus additional context features:
