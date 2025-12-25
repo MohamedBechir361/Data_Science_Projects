@@ -26,8 +26,10 @@ https://ember-energy.org/data/european-wholesale-electricity-price-data/
 
 **Exogenous features:**
 - Calendar effects (hour, day of week, holidays)
-- Weather variables
-- Natural gas price (TTF / GTT proxy)
+- Weather variables from "France Energy and Weather Data hourly/daily" dataset in KAGGLE
+  https://www.kaggle.com/datasets/ravvvvvvvvvvvv/france-energy-weather-hourly/data
+- Natural gas price (GTT proxy) from ABC Bourse
+   https://www.abcbourse.com/graphes/eod/GTTp
 
 All data are treated as public and non‑proprietary.
 
